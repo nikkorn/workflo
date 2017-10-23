@@ -1,0 +1,32 @@
+
+workflo.js
+----------
+
+let options: WORKFLOOPTIONS = { 
+	data: any[],
+	height?: number, 
+	width?: number, 
+	nodeIdField: "someUniquePropertyInEachDataItem",
+	nodeNameField?: "someNamePropertyInEachDataItem",
+	nodeTypeField?: "someUniquePropertyInEachDataItem",       // Optional, if not supplied uses default.
+	nodeParentField?: "theUniquePropertyOfAnotherNode",       // Optional, if not supplied then this is at root.
+	nodeDefaultDefinition : NODEDEFINITON,
+	nodeDefinitions : NODEDEFINITON[],
+	onclick: (dataItem: any) => {}                            // Called when a node is clicked, the data item backing the node is the param.   
+}
+
+let nodeDef: NODEDEFINITON = {
+	type: string,                                             // The type of the node.
+	height?: number, 
+	width?: number,
+	class?: sting,                                            // The optional class which is applied to the node dom element.	
+	tooltip?: (dataItem: any): string => {}                   // Function called to get the tooltip. 
+	linktip?: (dataItem: any): string => {}                   // Function called to get the tooltip to display for the link between this and parent. 
+	templateFunc: (dataItem: any): HTMLElement => {}          // Function called to create the node dom element.
+}
+
+// Create a new workflo
+var workflo = new Workflo(target: HTMLElement, options: WORKFLOOPTIONS);
+
+// Refresh the workflow to reflect changes in backing data.
+workflo.refresh();

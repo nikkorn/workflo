@@ -1,0 +1,32 @@
+.node-container {
+    border: 1px solid;
+    display: flex;
+    align-items: stretch;
+}
+
+.parent-container {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    position: relative;
+}
+
+.template-wrapper {
+    display: flex;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.connector-svg-wrapper {
+    position: relative;
+    width: 40px;
+}
+
+.connector-svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transform-origin: 0px, 0px, 0px;
+    z-index: -100;
+}
