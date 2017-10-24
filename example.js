@@ -1,5 +1,6 @@
- function apply ()
-  {
+ 
+var apply = function ()
+{
     var target = document.getElementById("target");
 
     var data = [
@@ -53,15 +54,15 @@
         tooltip: function (node) { return node.name() },                                   
         template: function (node) { 
             return "<div class='animal-box'>" +
-            `<p><b>${node.item.species}</b></p>` +
-            `<hr style='color:#FFFFFF;'>` +
-            `<p>${node.item.group}</p>` +
+            "<p><b>" + node.item.species + "</b></p>" +
+            "<hr style='color:#FFFFFF;'>" +
+            "<p>" + node.item.group + "</p>" +
             "</div>";
         }         
     };
 
     var options = {
-      data,
+      data: data,
       nodeIdField: "species",
 	  nodeNameField: "species",
 	  nodeTypeField: "type",
@@ -79,4 +80,8 @@
     };
 
     workflo = new Workflo(target, options);
-  }
+};
+
+var button = document.getElementById("apply-button");
+   
+button.addEventListener("click", apply, false);
