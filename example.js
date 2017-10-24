@@ -69,6 +69,9 @@
       definition: {
           default: defaultDefinition,
           additional: []
+      },
+      style: {
+          line: "straight"
       }
     };
 
