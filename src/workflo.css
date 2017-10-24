@@ -1,3 +1,17 @@
+.workflo-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+    border: 1px solid #bfbfbf;
+}
+
+.root-node-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row; /* correlates with option.layout.rootNodeOrientation horizontal=row vertical=column */
+}
+
 .node-container {
     display: flex;
     align-items: stretch;
@@ -19,13 +33,11 @@
 
 .connector-svg-wrapper {
     position: relative;
-    width: 40px;
+    width: 50px; /* correlates with option.layout.node-gap. Default 50px; */
 }
 
 .connector-svg {
     position: absolute;
     height: 100%;
     width: 100%;
-    transform-origin: 0px, 0px, 0px;
-    z-index: -100;
 }

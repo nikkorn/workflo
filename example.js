@@ -72,6 +72,9 @@
       },
       style: {
           line: "straight"
+      },
+      layout: {
+          rootNodeOrientation: "vertical"
       }
     };
 

@@ -153,9 +153,12 @@
 			this._createNodeTree();
 
 			// Create a node container for each node and its children.
-			this._createNodeContainers();
+			this._buildControl();
 		};
 
+		/**
+		 * Create the node tree based on the data items passed in via the options.
+		 */
 		this._createNodeTree = function () 
 		{
 			// Check that we have an id property.
@@ -230,8 +233,19 @@
 			this._rootNodes = rootNodes;
 		};
 
-		this._createNodeContainers = function () 
+		/**
+		 * Build the actual control into the target container.
+		 */
+		this._buildControl = function () 
 		{
+			// Apply the workflo-container class to the target element.
+			this._target.className += " workflo-container";
+
+			// Wrap the root nodes container in a div.
+			var rootNodeContainer       = document.createElement("div");
+			rootNodeContainer.className = "root-node-container";
+			this._target.appendChild(rootNodeContainer);
+
 			var fill = function (children, childContainer) 
 			{
 				for (var i = 0; i < children.length; i++)
@@ -253,14 +267,14 @@
 					{
 						fill(child.children, container.childContainer);
 
-						// Draw the connectos for this child.
+						// Draw the connectors for this child.
 						child.drawConnectors();
 					}
 				}
 			};
 
 			// Populate the target container with the nested node containers.
-			fill(this._rootNodes, this._target);
+			fill(this._rootNodes, rootNodeContainer);
 		};
 
 		this._init();
