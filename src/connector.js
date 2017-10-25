@@ -20,6 +20,7 @@ function populateConnectorSVG(svg, points, lineOptions)
         connector.setAttribute('y2', y2);
         connector.setAttribute('stroke', defaults.colour);
         connector.setAttribute('stroke-width', defaults.thickness);
+        connector.setAttribute('stroke-linecap', "square");
         svg.appendChild(connector);
     };
 

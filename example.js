@@ -72,12 +72,13 @@ var apply = function () {
         },
         line: {
             type: "angled",
-            thickness: 3,
+            thickness: 4,
             colour: "#000000"
         },
         layout: {
             rootNodeOrientation: "vertical"
-        }
+        },
+        onclick: function (dataItem) { console.log(dataItem); } 
     };
 
     workflo = new Workflo(target, options);
