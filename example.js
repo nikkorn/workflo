@@ -1,6 +1,5 @@
- 
-var apply = function ()
-{
+
+var apply = function () {
     var target = document.getElementById("target");
 
     var data = [
@@ -50,38 +49,40 @@ var apply = function ()
         }
     ];
 
-    var defaultDefinition = {                                         	
-        tooltip: function (node) { return node.name() },                                   
-        template: function (node) { 
+    var defaultDefinition = {
+        tooltip: function (node) { return node.name() },
+        template: function (node) {
             return "<div class='animal-box'>" +
-            "<p><b>" + node.item.species + "</b></p>" +
-            "<hr style='color:#FFFFFF;'>" +
-            "<p>" + node.item.group + "</p>" +
-            "</div>";
-        }         
+                "<p><b>" + node.item.species + "</b></p>" +
+                "<hr style='color:#FFFFFF;'>" +
+                "<p>" + node.item.group + "</p>" +
+                "</div>";
+        }
     };
 
     var options = {
-      data: data,
-      nodeIdField: "species",
-	  nodeNameField: "species",
-	  nodeTypeField: "type",
-	  nodeParentField: "group",
-      definition: {
-          default: defaultDefinition,
-          additional: []
-      },
-      style: {
-          line: "straight"
-      },
-      layout: {
-          rootNodeOrientation: "vertical"
-      }
+        data: data,
+        nodeIdField: "species",
+        nodeNameField: "species",
+        nodeTypeField: "type",
+        nodeParentField: "group",
+        definition: {
+            default: defaultDefinition,
+            additional: []
+        },
+        line: {
+            type: "angled",
+            thickness: 3,
+            colour: "#000000"
+        },
+        layout: {
+            rootNodeOrientation: "vertical"
+        }
     };
 
     workflo = new Workflo(target, options);
 };
 
 var button = document.getElementById("apply-button");
-   
+
 button.addEventListener("click", apply, false);

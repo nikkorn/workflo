@@ -63,22 +63,10 @@ function Node (item, options)
      */
     this.drawConnectors = function () { 
 
-        var connectorSVG = this._connectorSVG;
-
-        // Helper function to create a SVG line which represents a connector.
-        var createConnector = function (x1, y1, x2, y2, color, w) {
-            var connector = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            connector.setAttribute('x1', x1);
-            connector.setAttribute('y1', y1);
-            connector.setAttribute('x2', x2);
-            connector.setAttribute('y2', y2);
-            connector.setAttribute('stroke', color);
-            connector.setAttribute('stroke-width', w);
-            connectorSVG.appendChild(connector);
-        }
+        var offsetTop = 0;
+        var points    = [];
 
         // Draw a connector for each child of this node.
-        var offsetTop = 0;
         for (var i = 0; i < this.children.length; i++)
         {
             // Get the current child.
@@ -90,12 +78,13 @@ function Node (item, options)
             // Calculate the end point of the connector, which should be aligned with the child element.
             var childConnectorOffset = offsetTop + (childHeight / 2);
 
-            // Create a connector for this child.
-            createConnector(0, "50%", "100%", childConnectorOffset, 'rgb(0,0,0)', 2);
+            points.push(((childConnectorOffset / this.getHeight()) * 100) + "%");
 
             // Add the child height to the offset.
             offsetTop += childHeight;
         }
+
+        populateConnectorSVG(this._connectorSVG, points, options.line || {});
     }
 
     /**

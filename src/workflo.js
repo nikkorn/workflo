@@ -169,7 +169,6 @@
 	 */
 	Workflo.prototype.refresh = function ()
 	{
-	
 	};
 
 	/**
@@ -177,7 +176,6 @@
 	 */
 	Workflo.prototype.destroy = function ()
 	{
-		
 	};
 
 	// Export Workflo.
