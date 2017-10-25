@@ -40,6 +40,12 @@ function Node (item, options)
         // TODO Eventually deduce whether to use a specific template.
         wrapper.innerHTML = options.definition.default.template(this);
 
+        // If an onclick callback was defined in the options then hook it up to a press of the wrapped div.
+        if (options.onclick && typeof options.onclick === "function")
+        {
+            wrapper.addEventListener("click", function () { options.onclick(item); });
+        }
+
         // Create the SVG.
         this._connectorSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
