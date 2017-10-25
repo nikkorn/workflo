@@ -27,7 +27,7 @@
 			this._createControl();
 
 			// Create the node tree based on the data items passed as an option.
-			this._populateNodeTree();
+			this._populateNodeTree(this._options.data || []);
 
 			// Populate the root node container with nested node containers based on our node tree.
 			this._populateRootNodeContainer();
@@ -58,16 +58,13 @@
 		/**
 		 * Populate the node tree based on the data items passed in via the options.
 		 */
-		this._populateNodeTree = function () 
+		this._populateNodeTree = function (dataItems) 
 		{
 			// Check that we have an id property.
 			if (!this._options.nodeIdField)
 			{
 				throw "no id property was defined in options."
 			}
-
-			// Get the data items from the options.
-			var dataItems = this._options.data;
 
 			// Set the initial node depth.
 			var that = this;
@@ -167,8 +164,16 @@
 	/**
 	 * Refresh the instance.
 	 */
-	Workflo.prototype.refresh = function ()
+	Workflo.prototype.refresh = function (data)
 	{
+		// Empty the root node container.
+		this._rootNodeContainer.innerHTML = "";
+
+		// Re-populate the node tree.
+		this._populateNodeTree(data || this._options.data || []);
+
+		// Populate the root node container with nested node containers based on our node tree.
+		this._populateRootNodeContainer();
 	};
 
 	/**
