@@ -8,6 +8,7 @@ function populateConnectorSVG(svg, points, lineOptions)
         type: lineOptions.type || "angled",
         thickness: lineOptions.thickness || 2,
         colour: lineOptions.colour || "#4c4c4c",
+        cap: lineOptions.cap || "square"
     };
 
     // Function to create a SVG line which represents a connector.
@@ -20,7 +21,7 @@ function populateConnectorSVG(svg, points, lineOptions)
         connector.setAttribute('y2', y2);
         connector.setAttribute('stroke', defaults.colour);
         connector.setAttribute('stroke-width', defaults.thickness);
-        connector.setAttribute('stroke-linecap', "square");
+        connector.setAttribute('stroke-linecap', defaults.cap);
         svg.appendChild(connector);
     };
 

@@ -73,7 +73,8 @@ var apply = function () {
         line: {
             type: "angled",
             thickness: 4,
-            colour: "#000000"
+            colour: "#000000",
+            cap: "round"
         },
         layout: {
             rootNodeOrientation: "vertical"

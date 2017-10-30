@@ -37,8 +37,7 @@ function Node (item, options)
         wrapper.className  = "template-wrapper";
 
         // Use the default template to create the element.
-        // TODO Eventually deduce whether to use a specific template.
-        wrapper.innerHTML = options.definition.default.template(this);
+        wrapper.innerHTML = this._getTemplateFunction(options.definition || {})(this);
 
         // If an onclick callback was defined in the options then hook it up to a press of the wrapped div.
         if (options.onclick && typeof options.onclick === "function")
@@ -102,4 +101,28 @@ function Node (item, options)
      * Returns whether this is a root node.
      */
     this.isRoot = function () { return !this.parent();  }
+
+    /**
+     * Get the template function to use for creating the node element.
+     */
+    this._getTemplateFunction = function (definition) 
+    { 
+        // Firstly, attempt to find a template function based on the node type.
+        var idValue      = this.id();
+        var typeValue    = this.type();
+        var matchingType = (definition.additional || []).find(function (definition) { return definition.type === typeValue; })
+
+        if (matchingType && matchingType.template && typeof matchingType.template === "function")
+        {
+            return matchingType.template;
+        } 
+        else if (definition.default && definition.default.template && typeof definition.default.template === "function") 
+        {
+            return definition.default.template;
+        } 
+        else 
+        {
+            return function () { return "<div class='workflo-default-node'><p>" + idValue + "</p></div>" };
+        }
+    };
 }

@@ -48,3 +48,9 @@
     height: 100%;
     width: 100%;
 }
+
+.workflo-default-node {
+    padding: 5px;
+    background-color: #4c4c4c;
+    color: #FFFFFF;
+}
