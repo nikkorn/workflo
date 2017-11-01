@@ -109,7 +109,7 @@ function Node (item, options)
     { 
         // Firstly, attempt to find a template function based on the node type.
         var idValue      = this.id();
-        var matchingType = this._findAdditonalDefinitionByType(definition, this.type());
+        var matchingType = this._findAdditionalDefinitionByType(definition, this.type());
 
         if (matchingType && matchingType.template && typeof matchingType.template === "function")
         {
@@ -129,7 +129,7 @@ function Node (item, options)
      * Find an additional definition by type.
      * Returns undefined if one does not exist.
      */
-    this._findAdditonalDefinitionByType = function (definition, typeValue) 
+    this._findAdditionalDefinitionByType = function (definition, typeValue) 
     { 
         var additional = definition.additional || [];
 
