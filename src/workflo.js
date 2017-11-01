@@ -141,7 +141,7 @@
 					child.attachToParentContainer(container.parentContainer);
 
 					// Inject the node-container into the outer child container.
-					childContainer.append(container.nodeContainer);
+					childContainer.appendChild(container.nodeContainer);
 
 					// Repeat this process for ever child of the current child, if there are any.
 					if (child.children.length > 0)

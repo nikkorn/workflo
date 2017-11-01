@@ -54,13 +54,13 @@ function Node (item, options)
         // Create a wrapper for the SVG. 
         var connectorSVGWrapper       = document.createElement("div"); 
         connectorSVGWrapper.className = "connector-svg-wrapper";
-        connectorSVGWrapper.append(this._connectorSVG);
+        connectorSVGWrapper.appendChild(this._connectorSVG);
 
         // Append the node element to the target container.
-        parent.append(wrapper);
+        parent.appendChild(wrapper);
 
         // Append the connectors SVG wrapper the the target container.
-        parent.append(connectorSVGWrapper);
+        parent.appendChild(connectorSVGWrapper);
     }
 
     /**
@@ -109,8 +109,7 @@ function Node (item, options)
     { 
         // Firstly, attempt to find a template function based on the node type.
         var idValue      = this.id();
-        var typeValue    = this.type();
-        var matchingType = (definition.additional || []).find(function (definition) { return definition.type === typeValue; })
+        var matchingType = this._findAdditonalDefinitionByType(definition, this.type());
 
         if (matchingType && matchingType.template && typeof matchingType.template === "function")
         {
@@ -124,5 +123,26 @@ function Node (item, options)
         {
             return function () { return "<div class='workflo-default-node'><p>" + idValue + "</p></div>" };
         }
+    };
+
+    /**
+     * Find an additional definition by type.
+     * Returns undefined if one does not exist.
+     */
+    this._findAdditonalDefinitionByType = function (definition, typeValue) 
+    { 
+        var additional = definition.additional || [];
+
+        for (var i = 0; i < additional.length; i++)
+        {
+            if (additional[i].type === typeValue)
+            {
+                // We found the additional definition of the specified type.
+                return additional[i];
+            }
+        }
+
+        // There is no additional definition of the specified type.
+        return undefined;
     };
 }

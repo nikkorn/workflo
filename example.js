@@ -60,6 +60,16 @@ var apply = function () {
         }
     };
 
+    var rootNodeDefinition = {
+        type: "root",
+        tooltip: function (node) { return node.name() },
+        template: function (node) {
+            return "<div class='animal-box'>" +
+                "<p><b>" + node.item.species + "</b></p>" +
+                "</div>";
+        }
+    };
+
     var options = {
         data: data,
         nodeIdField: "species",
@@ -68,7 +78,7 @@ var apply = function () {
         nodeParentField: "group",
         definition: {
             default: defaultDefinition,
-            additional: []
+            additional: [rootNodeDefinition]
         },
         line: {
             type: "angled",
