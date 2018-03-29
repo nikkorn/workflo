@@ -24,23 +24,68 @@
     align-items: stretch;
 }
 
+.workflo-direction-horizontal .node-container {
+    flex-direction: row;
+}
+
+.workflo-direction-vertical .node-container {
+    flex-direction: column;
+}
+
 .parent-container {
     display: flex;
-    flex-direction: row;
     align-content: stretch;
     position: relative;
+}
+
+.workflo-direction-horizontal .parent-container {
+    flex-direction: row;
+}
+
+.workflo-direction-vertical .parent-container {
+    flex-direction: column;
+}
+
+.child-container {
+    display: flex;
+    align-items: stretch;
+}
+
+.workflo-direction-horizontal .child-container {
+    flex-direction: column;
+}
+
+.workflo-direction-vertical .child-container {
+    flex-direction: row;
 }
 
 .template-wrapper {
     display: flex;
     align-items: center;
+}
+
+.workflo-direction-horizontal .template-wrapper {
+    flex-direction: row;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
+.workflo-direction-vertical .template-wrapper {
+    flex-direction: column;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .connector-svg-wrapper {
     position: relative;
+}
+
+.workflo-direction-horizontal .connector-svg-wrapper {
     width: 50px; /* correlates with option.layout.node-gap. Default 50px; */
+}
+
+.workflo-direction-vertical .connector-svg-wrapper {
+    height: 50px; /* correlates with option.layout.node-gap. Default 50px; */
 }
 
 .connector-svg {

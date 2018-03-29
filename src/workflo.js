@@ -24,7 +24,7 @@
 		this._init = function () 
 		{
 			// Create the control.
-			this._createControl();
+			this._createControl(this._options.layout || {});
 
 			// Create the node tree based on the data items passed as an option.
 			this._populateNodeTree(this._options.data || []);
@@ -35,11 +35,15 @@
 
 		/**
 		 * Build the actual control into the target container.
+		 * @param layout The control layout options.
 		 */
-		this._createControl = function () 
+		this._createControl = function (layout) 
 		{
+			// Determine the layout direction of our nodes.
+			const layoutDirection = layout.direction.toLowerCase() === "vertical" ? "vertical" : "horizontal"; 
+			
 			// Apply the workflo-container class to the target element.
-			this._target.className += " workflo-container";
+			this._target.className += " workflo-container workflo-direction-" + layoutDirection;
 
 			// Wrap the root nodes container in a row container to center it vertically.
 			var rootNodeContainerRow       = document.createElement("div");

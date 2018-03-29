@@ -82,12 +82,13 @@ var apply = function () {
         },
         line: {
             type: "angled",
-            thickness: 4,
+            thickness: 2,
             colour: "#000000",
             cap: "round"
         },
         layout: {
-            rootNodeOrientation: "vertical"
+            rootNodeOrientation: "vertical",
+            direction: "vertical"
         },
         onclick: function (dataItem) { console.log(dataItem); } 
     };
