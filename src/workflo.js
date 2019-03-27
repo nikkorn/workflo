@@ -18,6 +18,9 @@
 		// The root node container.
 		this._rootNodeContainer;
 
+		// The node layout direction.
+		let layoutDirection;
+
 		/**
 		 * Initialisation.
 		 */
@@ -40,7 +43,7 @@
 		this._createControl = function (layout) 
 		{
 			// Determine the layout direction of our nodes.
-			const layoutDirection = layout.direction.toLowerCase() === "vertical" ? "vertical" : "horizontal"; 
+			layoutDirection = (layout.direction && layout.direction.toLowerCase() === "vertical") ? "vertical" : "horizontal"; 
 			
 			// Apply the workflo-container class to the target element.
 			this._target.className += " workflo-container workflo-direction-" + layoutDirection;
@@ -87,7 +90,7 @@
 					if (itemParentId && itemParentId === parent.id())
 					{
 						// Create the child node.
-						var childNode = new Node(item, options);
+						var childNode = new Node(item, options, layoutDirection);
 
 						// Set the depth of the node.
 						childNode.depth = parent.depth + 1;
@@ -112,7 +115,7 @@
 				if (!item[this._options.nodeParentField])
 				{
 					// Create the root node.
-					var rootNode = new Node(item, this._options);
+					var rootNode = new Node(item, this._options, layoutDirection);
 
 					// Create and append child nodes to this root node.
 					createAndAppendChildNodes(rootNode, dataItems, this._options);

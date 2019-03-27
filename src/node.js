@@ -1,7 +1,7 @@
 /**
  * A node.
  */
-function Node (item, options) 
+function Node (item, options, direction) 
 {
     // The node properties.
     this.id     = function () { return this.item[options.nodeIdField] };
@@ -48,7 +48,7 @@ function Node (item, options)
         // Create the SVG.
         this._connectorSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
-        // Set the inital attributes.
+        // Set the initial attributes.
         this._connectorSVG.setAttributeNS(null, "class", "connector-svg");
 
         // Create a wrapper for the SVG. 
@@ -67,35 +67,60 @@ function Node (item, options)
      * Draw the parent -> child connectors for this node.
      */
     this.drawConnectors = function () { 
+        var childPositionOffset = 0;
+        var points              = [];
 
-        var offsetTop = 0;
-        var points    = [];
+        // How we find the connector points depends on the layout direction.
+        if (direction === "horizontal") {
+            // Draw a connector for each child of this node.
+            for (var i = 0; i < this.children.length; i++)
+            {
+                // Get the current child.
+                var child = this.children[i];
 
-        // Draw a connector for each child of this node.
-        for (var i = 0; i < this.children.length; i++)
-        {
-            // Get the current child.
-            var child = this.children[i];
+                // Get the height of the child.
+                var childHeight = child.getHeight();
 
-            // Get the height of the child.
-            var childHeight = child.getHeight();
+                // Calculate the end point of the connector, which should be aligned with the child element.
+                var childConnectorOffset = childPositionOffset + (childHeight / 2);
 
-            // Calculate the end point of the connector, which should be aligned with the child element.
-            var childConnectorOffset = offsetTop + (childHeight / 2);
+                points.push(((childConnectorOffset / this.getHeight()) * 100) + "%");
 
-            points.push(((childConnectorOffset / this.getHeight()) * 100) + "%");
+                // Add the child height to the offset.
+                childPositionOffset += childHeight;
+            }
+        } else {
+            // Draw a connector for each child of this node.
+            for (var i = 0; i < this.children.length; i++)
+            {
+                // Get the current child.
+                var child = this.children[i];
 
-            // Add the child height to the offset.
-            offsetTop += childHeight;
+                // Get the width of the child.
+                var childWidth = child.getWidth();
+
+                // Calculate the end point of the connector, which should be aligned with the child element.
+                var childConnectorOffset = childPositionOffset + (childWidth / 2);
+
+                points.push(((childConnectorOffset / this.getWidth()) * 100) + "%");
+
+                // Add the child width to the offset.
+                childPositionOffset += childWidth;
+            }
         }
 
-        populateConnectorSVG(this._connectorSVG, points, options.line || {});
+        populateConnectorSVG(this._connectorSVG, points, options.line || {}, direction);
     }
 
     /**
      * Get the height of this node in the DOM.
      */
     this.getHeight = function () { return this._parentContainer ? this._parentContainer.offsetHeight : 0; }
+
+    /**
+     * Get the width of this node in the DOM.
+     */
+    this.getWidth = function () { return this._parentContainer ? this._parentContainer.offsetWidth : 0; }
 
     /**
      * Returns whether this is a root node.

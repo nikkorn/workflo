@@ -1,10 +1,9 @@
-
 /**
  * Populates the SVG with connectors.
  */
-function populateConnectorSVG(svg, points, lineOptions)
+function populateConnectorSVG(svg, points, lineOptions, direction)
 {
-    var defaults = {
+    var resolvedOptions = {
         type: lineOptions.type || "angled",
         thickness: lineOptions.thickness || 2,
         colour: lineOptions.colour || "#4c4c4c",
@@ -19,33 +18,54 @@ function populateConnectorSVG(svg, points, lineOptions)
         connector.setAttribute('y1', y1);
         connector.setAttribute('x2', x2);
         connector.setAttribute('y2', y2);
-        connector.setAttribute('stroke', defaults.colour);
-        connector.setAttribute('stroke-width', defaults.thickness);
-        connector.setAttribute('stroke-linecap', defaults.cap);
+        connector.setAttribute('stroke', resolvedOptions.colour);
+        connector.setAttribute('stroke-width', resolvedOptions.thickness);
+        connector.setAttribute('stroke-linecap', resolvedOptions.cap);
         svg.appendChild(connector);
     };
 
-    // The strategies for drawing connector lines.
-    var strategies = {
-        straight : function () 
-        {
-            for (var i = 0; i < points.length; i++)
+    // The draw layouts defining the strategies for drawing connector lines.
+    var drawLayouts = {
+        horizontal: {
+            straight: function () 
             {
-                drawLine(0, "50%", "105%", points[i]);
+                for (var i = 0; i < points.length; i++)
+                {
+                    drawLine(0, "50%", "105%", points[i]);
+                }
+            },
+            angled: function () 
+            {
+                drawLine(0, "50%", "50%", "50%");
+
+                for (var i = 0; i < points.length; i++)
+                {
+                    drawLine("50%", "50%", "50%", points[i]);
+                    drawLine("50%", points[i], "100%", points[i]);
+                }
             }
         },
-        angled : function () 
-        {
-            drawLine(0, "50%", "50%", "50%");
-
-            for (var i = 0; i < points.length; i++)
+        vertical: {
+            straight: function () 
             {
-                drawLine("50%", "50%", "50%", points[i]);
-                drawLine("50%", points[i], "100%", points[i]);
+                for (var i = 0; i < points.length; i++)
+                {
+                    drawLine("50%", "0%", points[i], "100%");
+                }
+            },
+            angled: function () 
+            {
+                drawLine("50%", "0%", "50%", "50%");
+
+                for (var i = 0; i < points.length; i++)
+                {
+                    drawLine("50%", "50%", points[i], "50%");
+                    drawLine(points[i], "50%", points[i], "100%");
+                }
             }
         }
     };
 
     // Use the desired strategy to draw the connectors.
-    strategies[defaults.type]();
+    drawLayouts[direction][resolvedOptions.type]();
 }

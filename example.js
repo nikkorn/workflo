@@ -83,7 +83,7 @@ var apply = function () {
         line: {
             type: "angled",
             thickness: 2,
-            colour: "#000000",
+            colour: "#aabbcc",
             cap: "round"
         },
         layout: {

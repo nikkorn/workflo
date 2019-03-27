@@ -30,3 +30,8 @@ var workflo = new Workflo(target: HTMLElement, options: WORKFLOOPTIONS);
 
 // Refresh the workflow to reflect changes in backing data.
 workflo.refresh();
+
+
+We could have an option where only one tree (from one root node) is displayed at a time but trees are selectable via a dropdown?
+
+We should have an option that defines whether to lay out all children of a node in the same direction as the main layout if none of the childern have children of their own. 
